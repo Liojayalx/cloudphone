@@ -66,6 +66,10 @@ final class AppStore: ObservableObject {
         do {
             let s = try await client.status()
             instances = s.instances
+            // El ID de instancia lo manda el servidor: si el guardado no existe, usar el primero real
+            if !s.instances.contains(where: { $0.id == settings.instanceId }), let first = s.instances.first {
+                settings.instanceId = first.id
+            }
             reachable = true
             lastError = nil
         } catch let e as APIError {

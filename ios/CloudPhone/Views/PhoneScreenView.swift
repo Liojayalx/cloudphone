@@ -59,7 +59,9 @@ struct PhoneScreenView: View {
 
     private func connect() {
         guard let token = store.token else { return }
-        stream.connect(settings: store.settings, token: token)
+        var s = store.settings
+        if let id = store.current?.id { s.instanceId = id }   // siempre el ID real que informa el servidor
+        stream.connect(settings: s, token: token)
         if store.settings.quality != .serverDefault {
             // La calidad se aplica en cuanto la sesión de vídeo está activa.
             Task {

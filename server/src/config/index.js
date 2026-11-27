@@ -55,12 +55,15 @@ export function deepMerge(base, over) {
 }
 
 function lanAddress() {
-  for (const list of Object.values(os.networkInterfaces())) {
+  // Se ignoran adaptadores virtuales (Hyper-V/WSL, VirtualBox, VMware, Docker...): no son la red a la que se conecta el iPhone
+  const virtual = /vEthernet|WSL|Hyper-V|VirtualBox|VMware|vmnet|Docker|Loopback|Bluetooth/i;
+  const found = [];
+  for (const [name, list] of Object.entries(os.networkInterfaces())) {
     for (const i of list || []) {
-      if (i.family === 'IPv4' && !i.internal && /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(i.address)) return i.address;
+      if (i.family === 'IPv4' && !i.internal && /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(i.address)) found.push({ name, address: i.address });
     }
   }
-  return '127.0.0.1';
+  return (found.find((f) => !virtual.test(f.name)) || found[0])?.address || '127.0.0.1';
 }
 
 export function validate(c) {

@@ -2,9 +2,10 @@
   Detiene el servidor Cloud Phone de forma limpia (apaga el Android y cierra conexiones).
   Si no responde en 90 s, termina el proceso.
 #>
+param([string]$Config)
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path $PSScriptRoot -Parent
-$cfgPath = Join-Path $Root 'cloudphone-config.json'
+$cfgPath = if ($Config) { $Config } else { Join-Path $Root 'cloudphone-config.json' }
 $adminPort = 8444; $dataDir = Join-Path $Root 'data'
 if (Test-Path $cfgPath) {
     try { $c = Get-Content $cfgPath -Raw | ConvertFrom-Json

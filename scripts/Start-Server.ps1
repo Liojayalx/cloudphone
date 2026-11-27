@@ -2,11 +2,11 @@
   Inicia el servidor Cloud Phone en segundo plano (sin ventana) y, opcionalmente, abre el panel de administración.
   Uso:  Start-Server.ps1 [-OpenPanel]
 #>
-param([switch]$OpenPanel)
+param([switch]$OpenPanel, [string]$Config)
 $ErrorActionPreference = 'Stop'
 
 $Root = Split-Path $PSScriptRoot -Parent
-$env:CLOUDPHONE_CONFIG = Join-Path $Root 'cloudphone-config.json'
+$env:CLOUDPHONE_CONFIG = if ($Config) { $Config } else { Join-Path $Root 'cloudphone-config.json' }
 $serverDir = Join-Path $Root 'server'
 $node = Join-Path $Root 'node\node.exe'
 if (-not (Test-Path $node)) { $c = Get-Command node -ErrorAction SilentlyContinue; if ($c) { $node = $c.Source } else { throw 'No se encuentra Node.js (node\node.exe).' } }
