@@ -1,6 +1,6 @@
 # App iOS: compilar el IPA y firmarlo con ESign
 
-> **Estado honesto:** el código de la app (SwiftUI, ~1300 líneas) está escrito y revisado, pero **no se ha podido compilar ni ejecutar en Windows**. No existe un IPA hasta que se ejecute la compilación de abajo. El primer build en macOS puede revelar errores de compilación que habrá que corregir (el workflow sube el log para diagnosticarlos).
+> **Estado honesto:** la app (SwiftUI, ~1300 líneas) **compila sin errores ni avisos** en GitHub Actions (`macos-15`, Xcode 16.4) y el workflow produce un IPA **sin firmar** real (arm64, iOS 16+). Lo que **no** se ha hecho es ejecutarla en un iPhone: pueden existir fallos de ejecución (vídeo, táctil, teclado, red local) que solo se verán al probarla. Desde Windows no se puede compilar iOS: la compilación se hizo en el runner macOS.
 
 ## Qué hace la app
 SwiftUI nativo (iOS 16+, iPhone): panel con tarjeta del dispositivo (estado, root, conexión, info Android, iniciar/apagar/reiniciar, instalar APK desde Archivos) · pantalla Android en tiempo real (VideoToolbox/`AVSampleBufferDisplayLayer`) con multitáctil, Atrás/Inicio/Recientes, teclado, rotar, pantalla completa, latencia/FPS, calidad, pegar texto · Ajustes (IP, puerto, emparejamiento, calidad, reconexión automática con backoff) · token en el Llavero.

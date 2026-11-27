@@ -17,7 +17,8 @@ Probado en: Windows 10 22H2, i5‑6600K (4 núcleos), 16 GB RAM, GPU AMD RX 480.
 
 **Opción A — Instalador (`CloudPhone-Setup.exe`)**: asistente en español: carpeta (por defecto la primera unidad fija distinta de C:), nombre/resolución/DPI/RAM/almacenamiento del Android, puerto, accesos directos, inicio automático opcional, regla de firewall opcional. No requiere administrador salvo para el firewall y para activar WHPX (UAC).
 > El `.exe` **no está firmado digitalmente**: SmartScreen mostrará «Windows protegió su PC» → *Más información* → *Ejecutar de todas formas*.
-> Para generarlo hace falta Inno Setup 6: `installer\build.ps1` (o `-InstallInno` para que lo descargue de jrsoftware.org verificando su firma). Sin Inno Setup, `build.ps1` genera solo la versión portable.
+> Para generarlo hace falta Inno Setup 6: `installer\build.ps1` (o `-InstallInno` para que descargue la 6.7.4 del repositorio oficial `jrsoftware/issrc` verificando su firma Authenticode). Sin Inno Setup, `build.ps1` genera solo la versión portable. Salida: `dist\CloudPhone-Setup.exe` y `dist\CloudPhone-Portable.zip`.
+> Si ya tienes componentes en otra carpeta (SDK/JDK/AVD), indica sus rutas en `paths` de `cloudphone-config.json` y «Preparar Android» los detectará sin descargar nada.
 
 **Opción B — Portable (`CloudPhone-Portable.zip`)**: descomprime en cualquier carpeta; ejecuta `Instalar-Android.cmd` una vez; luego `Iniciar-CloudPhone.cmd`.
 

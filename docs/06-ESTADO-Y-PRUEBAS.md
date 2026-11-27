@@ -18,16 +18,18 @@ Fecha de las pruebas: 2026‑11‑26/27. Equipo: Windows 10 Pro 22H2, i5‑6600K
 | Multi‑cliente / reconexión | 2 clientes simultáneos y reconexión: imagen en 2–3 ms (GOP en caché) | ✅ |
 | Servidor | Reinicio desde el panel (nuevo PID en 4 s), parada limpia con script (apaga Android, borra PID, libera puertos), adopción de un emulador ya en marcha | ✅ |
 | Paquete | `CloudPhone-Portable.zip` extraído en carpeta limpia: scripts de inicio/parada, panel, API, streaming y Android funcionan | ✅ |
+| Instalador | `CloudPhone-Setup.exe` compilado con Inno Setup 6.7.4; instalación silenciosa en D: → archivos, `cloudphone-config.json` generado con valores del asistente, accesos directos, entrada de desinstalación; servidor arranca desde lo instalado; desinstalación silenciosa deja la máquina limpia | ✅ |
+| **Compilación iOS** | GitHub Actions `macos-15` (Xcode 16.4, SDK iOS 18.5): proyecto generado con XcodeGen, compilación Release `iphoneos` **sin errores y sin avisos de Swift**, empaquetado en IPA | ✅ |
+| **IPA** | `dist\ipa\CloudPhone.ipa` (0,38 MB): binario **arm64**, Bundle ID `com.cloudphone.client`, `MinimumOSVersion` 16.0, permisos de Red local en `Info.plist`, **sin `_CodeSignature`** (sin firmar, listo para ESign). SHA‑256 `C1EE054F708335F5728A61DB47534DC7AA9A3D772C21C8BE549A960852473F8F` | ✅ generado; ❌ no probado en iPhone |
 
 ## Qué NO está verificado / no funciona todavía
 
 | Elemento | Estado |
 |---|---|
-| **App iOS** | Escrita pero **sin compilar ni probar** (requiere macOS/Xcode). Puede haber errores de compilación o de ejecución. No se ha probado el decodificador VideoToolbox, el multitáctil real, el teclado ni la reconexión en un iPhone |
-| **IPA** | **No existe aún.** Se genera ejecutando el workflow de GitHub Actions o compilando en un Mac |
-| **ESign** | Documentado, no probado |
-| **Instalador `Setup.exe`** | `CloudPhone.iss` escrito pero **no compilado ni probado**: no se instaló Inno Setup (requiere tu permiso; ver `build.ps1 -InstallInno`). El paquete portable sí está probado. El asistente (páginas, tareas, desinstalador, firewall) está sin ejecutar |
-| `Setup-Android.ps1` completo | Sintaxis validada y lógica de descarga/verificación basada en lo hecho a mano; **no se ejecutó de principio a fin** en una carpeta vacía (son 10 GB de descarga) |
+| **App iOS en un iPhone** | **Compila** (ver abajo) pero **no se ha ejecutado en ningún iPhone**. Sin probar: decodificación VideoToolbox, multitáctil real, teclado, reconexión, permiso de Red local, subida de APK desde Archivos. Pueden aparecer errores de ejecución |
+| **ESign** | Documentado, no probado (requiere tu certificado) |
+| Asistente del instalador (interactivo) | Se probó la instalación/desinstalación **silenciosa** (valores por defecto). Las páginas del asistente, el inicio automático, la tarea de firewall (UAC) y la pregunta final del desinstalador no se ejecutaron de forma interactiva |
+| `Setup-Android.ps1` descarga completa | Probada la **detección** de componentes ya instalados (sin descargar). La ruta de descarga desde cero (JDK/cmdline-tools/SDK, ~10 GB) sigue sin ejecutarse de principio a fin |
 | Regla de firewall | Script escrito, no ejecutado |
 | Pruebas en la LAN real | Todo se probó en `127.0.0.1`; el iPhone aún no se ha conectado |
 | Cifrado | **No hay TLS**: tráfico en claro (HTTP/WS). Mitigar con VPN/LAN de confianza |

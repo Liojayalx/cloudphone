@@ -26,6 +26,6 @@ iPhone (app SwiftUI) ──Wi‑Fi/VPN──► Servidor Node.js (Windows) ─�
 
 ## Estado y límites (resumen honesto)
 
-Verificado en un PC real: Android 13 con root real, instalación de APK, persistencia, API, autenticación, streaming H.264 decodificado en navegador, toque/texto/rotación/calidad con latencia toque→imagen ≈ 50‑55 ms (medida en el servidor), reinicio/parada del servidor. **No verificado:** la app iOS no se ha podido compilar ni ejecutar en este entorno (Windows); el IPA solo existe si se ejecuta el workflow/Mac. Detalle en [06-ESTADO-Y-PRUEBAS.md](docs/06-ESTADO-Y-PRUEBAS.md).
+Verificado en un PC real: Android 13 con root real, instalación de APK, persistencia, API, autenticación, streaming H.264 decodificado en navegador, toque/texto/rotación/calidad con latencia toque→imagen ≈ 50‑55 ms (medida en el servidor), reinicio/parada del servidor. El instalador (`Setup.exe`) se compiló e instaló/desinstaló en silencio con éxito, y la app iOS **compila en macOS (GitHub Actions) y genera un IPA sin firmar real**. **No verificado:** la app no se ha ejecutado en un iPhone, ESign no se ha probado, y el asistente interactivo del instalador y la descarga completa de «Preparar Android» desde cero tampoco. Detalle en [06-ESTADO-Y-PRUEBAS.md](docs/06-ESTADO-Y-PRUEBAS.md).
 
 La conexión iPhone↔PC **no está cifrada** (HTTP/WebSocket): úsala en tu Wi‑Fi de confianza o por VPN (Tailscale/WireGuard). Nunca expongas el puerto a Internet.
