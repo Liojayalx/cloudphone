@@ -40,8 +40,9 @@ Name: "firewall"; Description: "Permitir que el iPhone se conecte (regla de fire
 Source: "{#Stage}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
 
 [Icons]
-Name: "{autodesktop}\Cloud Phone"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Start-Server.ps1"" -OpenPanel"; IconFilename: "{app}\assets\cloudphone.ico"; Comment: "Inicia el servidor y abre el panel"; Tasks: desktopicon
-Name: "{group}\Cloud Phone (iniciar y abrir panel)"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Start-Server.ps1"" -OpenPanel"; IconFilename: "{app}\assets\cloudphone.ico"
+Name: "{autodesktop}\Cloud Phone"; Filename: "powershell.exe"; Parameters: "-STA -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\CloudPhone-Manager.ps1"" -StartAll"; IconFilename: "{app}\assets\cloudphone.ico"; Comment: "Abre el administrador, inicia el servidor y enciende el Android"; Tasks: desktopicon
+Name: "{group}\Cloud Phone (administrador, inicia todo)"; Filename: "powershell.exe"; Parameters: "-STA -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\CloudPhone-Manager.ps1"" -StartAll"; IconFilename: "{app}\assets\cloudphone.ico"
+Name: "{group}\Panel web (avanzado)"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Start-Server.ps1"" -OpenPanel"; IconFilename: "{app}\assets\cloudphone.ico"
 Name: "{group}\Detener servidor"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Stop-Server.ps1"""; IconFilename: "{app}\assets\cloudphone.ico"
 Name: "{group}\Reiniciar servidor"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Restart-Server.ps1"""; IconFilename: "{app}\assets\cloudphone.ico"
 Name: "{group}\Preparar Android (descarga componentes)"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\Setup-Android.ps1"""; IconFilename: "{app}\assets\cloudphone.ico"
@@ -55,7 +56,7 @@ Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: 
 [Run]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\Enable-Firewall.ps1"""; StatusMsg: "Configurando la regla de firewall (red privada)..."; Tasks: firewall; Flags: runhidden waituntilterminated
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\Setup-Android.ps1"""; Description: "Preparar ahora el Android virtual (descarga componentes oficiales de Google y Adoptium, ~3-9 GB)"; Flags: postinstall skipifsilent
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\Start-Server.ps1"" -OpenPanel"; Description: "Iniciar el servidor y abrir el panel de administración"; Flags: postinstall skipifsilent nowait
+Filename: "powershell.exe"; Parameters: "-STA -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""{app}\scripts\CloudPhone-Manager.ps1"" -StartAll"; Description: "Abrir el administrador e iniciar el servidor"; Flags: postinstall skipifsilent nowait
 
 [UninstallRun]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\Stop-Server.ps1"""; RunOnceId: "StopServer"; Flags: runhidden waituntilterminated

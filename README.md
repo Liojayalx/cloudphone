@@ -20,7 +20,7 @@ iPhone (app SwiftUI) ──Wi‑Fi/VPN──► Servidor Node.js (Windows) ─�
 
 ## Inicio rápido
 
-1. **PC (Windows 10/11 x64):** instala con `CloudPhone-Setup.exe` (o descomprime `CloudPhone-Portable.zip`) → ejecuta **Preparar Android** → abre **Cloud Phone** y pulsa **Iniciar**. Ver [04-INSTALACION.md](docs/04-INSTALACION.md).
+1. **PC (Windows 10/11 x64):** instala con `CloudPhone-Setup.exe` (o descomprime `CloudPhone-Portable.zip`) → ejecuta **Preparar Android** → abre **Cloud Phone**: es un **administrador nativo de Windows** (ventana propia con icono en la bandeja, sin navegador) para iniciar/detener el servidor y el Android, ver el estado y el root, capturar la pantalla, instalar APK, emparejar el iPhone y ver los logs. El panel web local sigue disponible como «Panel web (avanzado)». Ver [04-INSTALACION.md](docs/04-INSTALACION.md).
 2. **IPA:** compílalo con GitHub Actions o en un Mac → fírmalo e instálalo con ESign. Ver [05-IOS-IPA-ESIGN.md](docs/05-IOS-IPA-ESIGN.md).
 3. **iPhone:** Ajustes → IP del PC, puerto, código de emparejamiento (panel → Dispositivos) → **Abrir dispositivo**.
 
