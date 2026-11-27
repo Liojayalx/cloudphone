@@ -1,0 +1,53 @@
+﻿{
+  "schemaVersion": 1,
+  "server": {
+    "listenAddress": "auto",
+    "port": 8443,
+    "adminPort": 8444,
+    "autoStartAndroid": false,
+    "stopAndroidOnExit": true,
+    "logLevel": "info"
+  },
+  "auth": {
+    "pairingCodeLength": 8,
+    "tokenBytes": 32,
+    "maxAuthorizedDevices": 3
+  },
+  "instances": [
+    {
+      "id": "phone1",
+      "name": "Mi Cloud Phone",
+      "android": {
+        "apiLevel": 33,
+        "image": "google_apis;x86_64",
+        "resolution": { "width": 720, "height": 1280 },
+        "dpi": 320,
+        "orientation": "portrait",
+        "ramMB": 3072,
+        "cpuCores": 3,
+        "storageGB": 8,
+        "gpu": "host",
+        "deviceProfile": "pixel_5",
+        "root": true
+      }
+    }
+  ],
+  "streaming": {
+    "codec": "h264",
+    "maxWidth": 720,
+    "fps": 30,
+    "bitrateKbps": 4000,
+    "quality": "balanced"
+  },
+  "paths": {
+    "androidSdk": "",
+    "jdk": "",
+    "avdHome": "",
+    "androidUserHome": "",
+    "tmp": "",
+    "data": "",
+    "logs": "",
+    "apkLibrary": "",
+    "scrcpyServer": ""
+  }
+}

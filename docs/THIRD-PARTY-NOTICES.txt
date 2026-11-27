@@ -1,0 +1,18 @@
+﻿AVISOS DE TERCEROS / THIRD-PARTY NOTICES
+
+Cloud Phone es un proyecto original. Utiliza o redistribuye los siguientes componentes de terceros, cada uno bajo su propia licencia:
+
+1. scrcpy-server v5.0.1 - Copyright (C) Genymobile - Apache License 2.0
+   https://github.com/Genymobile/scrcpy   (se redistribuye sin modificar; SHA-256 764eb6f79811d5211fe9df341120882ba9994c7a61b897d7bf3fb662e53bc536)
+
+2. Node.js (node.exe) - Node.js contributors - licencia MIT y licencias de sus dependencias incluidas
+   https://github.com/nodejs/node/blob/main/LICENSE
+
+3. ws (WebSocket para Node.js) - Einar Otto Stangvik y colaboradores - licencia MIT
+   https://github.com/websockets/ws
+
+Componentes que NO se redistribuyen pero se descargan en tu PC a peticion tuya (Setup-Android):
+ - Android SDK, emulador e imagenes del sistema de Google: sujetos a la licencia del Android SDK https://developer.android.com/studio/terms
+ - JDK Eclipse Temurin 17 (Adoptium): GPLv2 con Classpath Exception https://adoptium.net
+
+Este proyecto no esta afiliado a LDCloud ni a ninguna otra marca; no copia su codigo, recursos ni diseno.

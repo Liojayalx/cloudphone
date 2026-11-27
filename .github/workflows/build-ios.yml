@@ -1,0 +1,77 @@
+name: Build iOS IPA (sin firmar)
+
+# Compila la app SwiftUI en un runner macOS con Xcode y empaqueta un .ipa SIN FIRMAR,
+# listo para importarlo en ESign y firmarlo con TU certificado. No se usan certificados ni secretos.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['ios/**', '.github/workflows/build-ios.yml']
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versiones de herramientas
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Generar proyecto Xcode
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Compilar (Release, iphoneos, sin firma)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project CloudPhone.xcodeproj \
+            -scheme CloudPhone \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build | tee build.log | tail -n 60
+
+      - name: Empaquetar IPA
+        working-directory: ios
+        run: |
+          APP="build/Build/Products/Release-iphoneos/CloudPhone.app"
+          test -d "$APP" || { echo "No se generó $APP"; exit 1; }
+          rm -rf Payload CloudPhone.ipa
+          mkdir Payload
+          cp -R "$APP" Payload/
+          zip -qry CloudPhone.ipa Payload
+          ls -lh CloudPhone.ipa
+
+      - name: Verificar contenido del IPA
+        working-directory: ios
+        run: |
+          unzip -l CloudPhone.ipa | head -n 20
+          lipo -info Payload/CloudPhone.app/CloudPhone
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" Payload/CloudPhone.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :MinimumOSVersion" Payload/CloudPhone.app/Info.plist
+          # Debe estar sin firmar: no debe existir _CodeSignature
+          if [ -d Payload/CloudPhone.app/_CodeSignature ]; then echo "AVISO: el .app contiene firma"; else echo "OK: sin firmar (listo para ESign)"; fi
+
+      - name: Subir IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: CloudPhone-unsigned-ipa
+          path: ios/CloudPhone.ipa
+          if-no-files-found: error
+
+      - name: Subir log de compilación (si falla)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: ios/build.log

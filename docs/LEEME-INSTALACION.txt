@@ -1,0 +1,33 @@
+﻿CLOUD PHONE SERVER - INSTALACION COMPLETADA
+
+PASOS SIGUIENTES (en este orden)
+
+1. Preparar el Android virtual (solo la primera vez)
+   Si no lo hiciste al terminar el asistente: Menu Inicio > Cloud Phone > "Preparar Android".
+   - Descarga componentes OFICIALES (JDK de Adoptium, herramientas e imagen de Android de Google), verificando sumas de comprobacion.
+   - Ocupa entre 3 y 10 GB en la carpeta de instalacion.
+   - Necesita la caracteristica de Windows "Plataforma del hipervisor de Windows" (WHPX). Si falta, el asistente te lo indica,
+     la activa con tu permiso de administrador y tendras que REINICIAR el PC.
+   - Tu BIOS/UEFI debe tener la virtualizacion (Intel VT-x / AMD-V) activada.
+
+2. Iniciar el servidor
+   Acceso directo "Cloud Phone" del escritorio. Abre el panel de administracion en tu navegador (solo accesible desde este PC).
+   Pulsa "Iniciar" para encender el Android (tarda alrededor de 1 minuto).
+
+3. Emparejar el iPhone
+   Panel > pestana "Dispositivos" > aparece un CODIGO DE EMPAREJAMIENTO (un solo uso).
+   En la app del iPhone: Ajustes > escribe la IP de este PC (ipconfig, ej. 192.168.1.50) y el puerto (8443 por defecto)
+   > escribe el codigo > Emparejar. Despues pulsa "Abrir dispositivo".
+
+SEGURIDAD
+ - No hay contrasenas por defecto: el codigo se genera en tu PC y caduca al usarse.
+ - La conexion iPhone-PC va SIN CIFRAR (HTTP/WebSocket). Usala solo en tu red Wi-Fi de confianza o por una VPN (Tailscale/WireGuard).
+   No abras el puerto en tu router a Internet.
+ - La regla de firewall (si la aceptaste) solo permite conexiones en redes PRIVADAS y solo a este servidor.
+
+ARCHIVOS UTILES
+ - cloudphone-config.json : configuracion (tambien editable desde el panel)
+ - logs\                  : registros del servidor y del emulador
+ - Desinstalar            : Menu Inicio > Cloud Phone > Desinstalar (te preguntara si borrar el Android y sus datos)
+
+Documentacion completa: carpeta docs\

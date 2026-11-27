@@ -1,0 +1,27 @@
+# Artefactos de compilación y datos locales (no se suben)
+dist/
+node_modules/
+logs/
+data/
+apk/
+runtime/
+*.log
+*.token
+.testtoken
+
+# Configuración local del servidor (contiene rutas de tu PC); el ejemplo sí se versiona
+server/cloudphone-config.json
+
+# iOS: el proyecto .xcodeproj se genera con XcodeGen
+ios/CloudPhone.xcodeproj/
+ios/build/
+ios/Payload/
+ios/*.ipa
+ios/CloudPhone/Info.plist
+
+# Nunca subir certificados ni claves de firma
+*.p12
+*.mobileprovision
+*.cer
+*.pem
+*.key

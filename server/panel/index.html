@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud Phone — Administración</title>
+<link rel="stylesheet" href="/panel/style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">▣</span> Cloud Phone <small>Administración</small></div>
+  <div class="row">
+    <span id="serverInfo" class="muted">conectando…</span>
+    <button id="btnSrvRestart" class="small">Reiniciar servidor</button>
+    <button id="btnSrvStop" class="small danger">Apagar servidor</button>
+  </div>
+</header>
+
+<main>
+  <section class="card" id="devCard">
+    <h2 id="instName">—</h2>
+    <div class="badges">
+      <span id="bState" class="badge">—</span>
+      <span id="bRoot" class="badge">root: —</span>
+      <span id="bUp" class="badge">—</span>
+    </div>
+    <div class="row">
+      <button id="btnStart" class="primary">Iniciar</button>
+      <button id="btnStop" class="danger">Apagar</button>
+      <button id="btnRestart">Reiniciar</button>
+    </div>
+    <div id="busyMsg" class="muted small"></div>
+    <h3>Información</h3>
+    <table id="infoTable" class="kv"></table>
+    <h3>Pantalla</h3>
+    <div class="row wrap">
+      <input id="resW" type="number" placeholder="ancho" min="240" max="3840">
+      <input id="resH" type="number" placeholder="alto" min="240" max="3840">
+      <input id="resD" type="number" placeholder="dpi" min="120" max="640">
+    </div>
+    <div class="row wrap">
+      <button id="btnRes">Aplicar</button><button id="btnResReset">Restablecer</button>
+      <button id="btnPortrait">Vertical</button><button id="btnLandscape">Horizontal</button>
+    </div>
+  </section>
+
+  <section class="card screen" id="screenCard">
+    <div class="screenHead">
+      <h2>Pantalla en vivo</h2>
+      <div class="row">
+        <button id="btnLive" class="primary">Conectar</button>
+        <span id="liveStats" class="muted small">desconectado</span>
+      </div>
+    </div>
+    <div class="stage"><canvas id="screen" width="360" height="640" tabindex="0"></canvas><div id="overlay">Pulsa «Conectar»</div></div>
+    <div class="row wrap nav">
+      <button data-key="back">◀ Atrás</button><button data-key="home">● Inicio</button><button data-key="recents">▢ Recientes</button>
+      <button data-key="power">⏻</button><button data-key="volup">Vol +</button><button data-key="voldown">Vol −</button>
+      <button id="btnRotate">⟳ Rotar</button><button id="btnNotif">Notificaciones</button>
+    </div>
+    <div class="row">
+      <input id="textIn" placeholder="Escribe texto y pulsa Enter para enviarlo al Android" style="flex:1">
+      <button id="btnText">Enviar</button>
+    </div>
+    <div class="row wrap">
+      <label class="small">FPS <input id="qFps" type="number" min="5" max="60" value="30" style="width:64px"></label>
+      <label class="small">Kbps <input id="qBr" type="number" min="500" max="30000" step="500" value="4000" style="width:80px"></label>
+      <button id="btnQ">Aplicar calidad</button>
+    </div>
+  </section>
+
+  <section class="card wide">
+    <nav class="tabs">
+      <button class="tab active" data-tab="apps">APK y apps</button>
+      <button class="tab" data-tab="cfg">Configuración</button>
+      <button class="tab" data-tab="sec">Dispositivos</button>
+      <button class="tab" data-tab="logs">Logs</button>
+    </nav>
+
+    <div id="tab-apps" class="pane">
+      <div class="row wrap">
+        <input type="file" id="apkFile" accept=".apk">
+        <button id="btnApk" class="primary">Instalar APK</button>
+        <span id="apkMsg" class="muted small"></span>
+      </div>
+      <h3>Apps instaladas por el usuario <button id="btnApps" class="small">Actualizar</button></h3>
+      <table id="appsTable" class="list"></table>
+    </div>
+
+    <div id="tab-cfg" class="pane hidden">
+      <p class="muted small">Los cambios del Android se aplican en el próximo arranque. Puertos y dirección requieren reiniciar el servidor.</p>
+      <textarea id="cfgText" spellcheck="false"></textarea>
+      <div class="row"><button id="btnCfgSave" class="primary">Guardar</button><button id="btnCfgLoad">Recargar</button><span id="cfgMsg" class="small"></span></div>
+    </div>
+
+    <div id="tab-sec" class="pane hidden">
+      <h3>Emparejar un iPhone</h3>
+      <div class="row"><code id="pairCode" class="big">—</code><button id="btnPair">Generar nuevo código</button></div>
+      <p class="muted small">El código es de un solo uso. Introdúcelo en la app junto con la IP y el puerto del servidor.</p>
+      <h3>Dispositivos autorizados</h3><table id="devTable" class="list"></table>
+      <h3>Conexiones de streaming activas</h3><table id="connTable" class="list"></table>
+    </div>
+
+    <div id="tab-logs" class="pane hidden"><pre id="logBox"></pre></div>
+  </section>
+</main>
+<script type="module" src="/panel/app.js"></script>
+</body>
+</html>
